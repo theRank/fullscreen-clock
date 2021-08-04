@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Clock</title>
+
+    <link rel="stylesheet" href="https://use.typekit.net/bij0zto.css" />
+
+    <style>
+      body {
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+      }
+
+      .noselect {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+      .center {
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        display: -webkit-flex;
+
+        justify-content: center;
+        align-items: center;
+      }
+
+      .grid {
+        width: 100%;
+        height: 100%;
+        display: grid;
+        grid-template-columns: repeat(10, 10%);
+        grid-template-rows: repeat(10, 10%);
+      }
+
+      #week_format {
+        grid-row: 7 / 8;
+        grid-column: 1 / 11;
+
+        font-size: min(8vw, 8vh);
+        font-family: muli, sans-serif;
+        font-weight: 300;
+        font-style: normal;
+      }
+
+      #date_format {
+        grid-row: 8 / 10;
+        grid-column: 1 / 11;
+
+        font-size: min(8vw, 8vh);
+        font-family: pt-mono, monospace;
+        font-weight: 400;
+        font-style: normal;
+      }
+
+      #time_format {
+        grid-row: 2 / 6;
+        grid-column: 2 / 10;
+
+        flex: 0 0 60%;
+        font-size: min(22vw, 33vh);
+        font-family: pt-mono, monospace;
+        font-weight: 400;
+        font-style: normal;
+      }
+
+      #copyright {
+        grid-row: 10 / 11;
+        grid-column: 1 / 11;
+
+        font-size: min(1.5vw, 1.5vh);
+        font-family: muli, sans-serif;
+        font-weight: 500;
+        font-style: normal;
+      }
+
+      #copyright div {
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 200ms, opacity 200ms;
+      }
+
+      #copyright:hover div {
+        visibility: visible;
+        opacity: 1;
+        transition: opacity 1s ease-out 3s;
+      }
+    </style>
+  </head>
+
+  <body class="noselect">
+    <div class="grid">
+      <div id="week_format">
+        <div id="week" class="center"></div>
+      </div>
+      <div id="date_format">
+        <div id="date" class="center"></div>
+      </div>
+      <div id="time_format">
+        <div id="time" class="center"></div>
+      </div>
+      <div id="copyright">
+        <div class="center">&copy; 2021 Rank Technology</div>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    setInterval("update_time(week, date, time)", 1000);
+
+    function update_time(week_id, date_id, time_id) {
+      let date = new Date();
+
+      let yr = date.getFullYear();
+      let mo = date.getMonth() + 1;
+      let day = date.getDate();
+      let wk = date.getDay();
+
+      let h = date.getHours();
+      let m = date.getMinutes();
+      let s = date.getSeconds();
+
+      if (h < 10) {
+        h = "0" + h;
+      }
+      if (m < 10) {
+        m = "0" + m;
+      }
+      if (s < 10) {
+        s = "0" + s;
+      }
+
+      let week_text = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ][wk];
+      let date_text = yr + "-" + mo + "-" + day;
+      let time_text = h + ":" + m;
+
+      // console.log(yr + "-" + mo + "-" + day + ", " + h + ":" + m + ":" + s);
+
+      document.getElementById(week_id.id).innerHTML = week_text;
+      document.getElementById(date_id.id).innerHTML = date_text;
+      document.getElementById(time_id.id).innerHTML = time_text;
+    }
+
+    window.addEventListener("load", function () {
+      update_time(week, date, time);
+    });
+  </script>
+</html>
