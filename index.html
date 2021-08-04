@@ -22,6 +22,7 @@
         -ms-user-select: none;
         user-select: none;
       }
+
       .center {
         width: 100%;
         height: 100%;
@@ -97,7 +98,7 @@
   </head>
 
   <body class="noselect">
-    <div class="grid">
+    <div id="page" class="grid">
       <div id="week_format">
         <div id="week" class="center"></div>
       </div>
@@ -158,7 +159,28 @@
     }
 
     window.addEventListener("load", function () {
+      let page = document.getElementById("page");
+
+      let fg_color = get_query_variable("fg");
+      if (fg_color != null) {
+        page.style.setProperty("color", "#" + fg_color, "important");
+      }
+
+      let bg_color = get_query_variable("bg");
+      if (bg_color != null) {
+        page.style.setProperty("background-color", "#" + bg_color, "important");
+      }
+
       update_time(week, date, time);
     });
+
+    function get_query_variable(variable) {
+      let reg = new RegExp("(^|&)" + variable + "=([^&]*)(&|$)", "i");
+      let pair = window.location.search.substr(1).match(reg);
+      if (pair != null) {
+        return decodeURIComponent(pair[2]);
+      }
+      return null;
+    }
   </script>
 </html>
