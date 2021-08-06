@@ -28,3 +28,11 @@ A web clock to display local time.
        hmsColor: set the background color to #hhmmss
   ```
 </details>
+
+## Maintainers
+
+[@bugstop](https://github.com/bugstop).
+
+## License
+
+[Apache-2.0 License](LICENSE) © Rank Technology
