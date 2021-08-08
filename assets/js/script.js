@@ -41,7 +41,7 @@ function update_time(week_id, date_id, time_id) {
 }
 
 window.addEventListener("load", function () {
-  let page = document.getElementById("page");
+  let page = document.getElementById("wrapper");
 
   let fg_color = get_query_variable("fg");
   if (fg_color != null) {
@@ -64,6 +64,33 @@ window.addEventListener("load", function () {
     setInterval("update_time(week, date, time)", parseInt(interval));
   } else {
     setInterval("update_time(week, date, time)", 1000);
+  }
+
+  let rotation = get_query_variable("rot");
+  if (["180", "90", "-90", "270"].includes(rotation)) {
+    let rot = "rotate(" + rotation + "deg)";
+
+    page.style.setProperty("transform", rot);
+    page.style.setProperty("-webkit-transform", rot);
+
+    if (rotation == "90") {
+      page.style.setProperty("transform-origin", "bottom left");
+      page.style.setProperty("-webkit-transform-origin", "bottom left");
+      page.style.setProperty("position", "absolute");
+      page.style.setProperty("top", "-100vw");
+      page.style.setProperty("height", "100vw");
+      page.style.setProperty("width", "100vh");
+    }
+
+    if (rotation == "-90" || rotation == "270") {
+      page.style.setProperty("transform-origin", "bottom right");
+      page.style.setProperty("-webkit-transform-origin", "bottom right");
+      page.style.setProperty("position", "absolute");
+      page.style.setProperty("top", "-100vw");
+      page.style.setProperty("left", "calc(100vw - 100vh)");
+      page.style.setProperty("height", "100vw");
+      page.style.setProperty("width", "100vh");
+    }
   }
 
   let special = get_query_variable("sp");

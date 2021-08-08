@@ -14,7 +14,8 @@ A web clock to display local time.
   
   fg:  Font color Hex cod
   bg:  Background color Hex code
-  int: Interval (in milliseconds)
+  int: Interval (milliseconds)
+  rot: Rotation (degrees) [-90, 0, 90, 180, 270]
   ```
 </details>
 
